@@ -19,8 +19,8 @@ class User extends Model {
     return this.hasMany('App/Models/Token')
   }
 
-  avatars() {
-    return this.hasMany('App/Models/Avatar')
+  avatar() {
+    return this.belongsTo('App/Models/Avatar')
   }
 
 

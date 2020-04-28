@@ -2,6 +2,7 @@
 
 const Avatar = use('App/Models/Avatar')
 const Helpers = use('Helpers')
+const User = use('App/Models/User')
 
 class AvatarController {
   async show({ params, response }) {
@@ -27,9 +28,12 @@ class AvatarController {
         file: fileName,
         name: upload.clientName,
         type: upload.type,
-        subtype: upload.subtype,
-        user_id: user.id
+        subtype: upload.subtype
       })
+
+      const u = await User.findByOrFail('id', user.id)
+      u.avatar_id = file.id
+      await u.save()
 
       return file
     } catch (error) {

@@ -12,7 +12,7 @@ class UserController {
   async show({ params, response }) {
     try {
       const user = await User.findOrFail(params.id)
-      await user.load('avatars')
+      await user.load('avatar')
       return user
     } catch (error) {
       return response.status(error.status).json(

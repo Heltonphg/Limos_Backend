@@ -12,9 +12,9 @@ class Avatar extends Model {
     return `${Env.get('APP_URL')}/avatars/${id}`
   }
 
-  user() {
-    return this.belongsTo('App/Models/User')
-  }
+
+
+
 }
 
 module.exports = Avatar

@@ -1,15 +1,16 @@
 'use strict'
 
-const File = use('App/Models/File')
+const Avatar = use('App/Models/Avatar')
 const Helpers = use('Helpers')
 
-class FileController {
+class AvatarController {
   async show({ params, response }) {
-    const { file } = await File.findOrFail(params.id)
+    const { file } = await Avatar.findOrFail(params.id)
     return response.download(Helpers.tmpPath(`uploads/${file}`))
   }
 
-  async store({ request, response }) {
+  async store({ request, response, auth }) {
+    const user = await auth.getUser();
     try {
       if (!request.file('file')) return
       const upload = request.file('file', { size: '2mb' })
@@ -22,12 +23,12 @@ class FileController {
         throw upload.error()
       }
 
-      const file = await File.create({
+      const file = await Avatar.create({
         file: fileName,
         name: upload.clientName,
         type: upload.type,
-        subtype: upload.subtype
-
+        subtype: upload.subtype,
+        user_id: user.id
       })
 
       return file
@@ -39,4 +40,4 @@ class FileController {
   }
 }
 
-module.exports = FileController
+module.exports = AvatarController

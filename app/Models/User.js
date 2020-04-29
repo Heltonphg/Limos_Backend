@@ -5,6 +5,9 @@ const Model = use('Model')
 const Hash = use('Hash')
 
 class User extends Model {
+  static get hidden() {
+    return ['password']
+  }
   static boot() {
     super.boot()
 
@@ -19,12 +22,12 @@ class User extends Model {
     return this.hasMany('App/Models/Token')
   }
 
-  avatar() {
-    return this.belongsTo('App/Models/Avatar')
-  }
-
   addresses() {
     return this.hasMany('App/Models/Address')
+  }
+
+  avatar() {
+    return this.belongsTo('App/Models/Avatar')
   }
 
 

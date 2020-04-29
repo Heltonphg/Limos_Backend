@@ -23,6 +23,10 @@ class User extends Model {
     return this.belongsTo('App/Models/Avatar')
   }
 
+  addresses() {
+    return this.hasMany('App/Models/Address')
+  }
+
 
 }
 

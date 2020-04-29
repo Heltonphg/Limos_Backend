@@ -6,13 +6,6 @@ const Schema = use('Schema')
 class AlterUsersSchema extends Schema {
   up() {
     this.alter('users', (table) => {
-      table.integer('addresses_id')
-        .unsigned()
-        .references('id')
-        .inTable('addresses')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE')
-
       table.integer('avatar_id')
         .unsigned()
         .references('id')

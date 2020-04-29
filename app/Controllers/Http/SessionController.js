@@ -17,7 +17,7 @@ class SessionController {
         return user
       }
     } catch (error) {
-      return response.status(error.status).json({ error: { message: "Impossível Autentiucar-se com as credenciasi fornecidas" } })
+      return response.status(error.status).json({ error: { message: "Impossível Autenticar-se com as credenciais fornecidas" } })
     }
   }
 }

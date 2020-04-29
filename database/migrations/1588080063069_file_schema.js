@@ -11,12 +11,6 @@ class FileSchema extends Schema {
       table.string('name').notNullable()
       table.string('type', 20)
       table.string('subtype', 20)
-      table.integer('user_id')
-        .unsigned()
-        .references('id')
-        .inTable('users')
-        .onUpdate('CASCADE')
-        .onDelete('SET NULL')
       table.timestamps()
     })
   }

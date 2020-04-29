@@ -13,6 +13,7 @@ class UserController {
     try {
       const user = await User.findOrFail(params.id)
       await user.load('avatar')
+      await user.load('addresses')
       return user
     } catch (error) {
       return response.status(error.status).json(

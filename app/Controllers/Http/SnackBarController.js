@@ -5,7 +5,7 @@ const SnackBar = use('App/Models/SnackBar')
 class SnackBarController {
 
   async index({ request, response }) {
-    const snacks = await SnackBar.all()
+    const snacks = await SnackBar.query().with('products').fetch()
     return snacks
   }
 
@@ -18,6 +18,7 @@ class SnackBarController {
   async show({ params, request, response, view }) {
     try {
       const snack = await SnackBar.findOrFail(params.id)
+      await snack.load('products')
       return snack
     } catch (error) {
       return response.status(error.status).json({ error: { message: "Lanchonete não existe" } })

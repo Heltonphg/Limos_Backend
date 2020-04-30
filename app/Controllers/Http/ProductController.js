@@ -8,7 +8,6 @@ class ProductController {
     const products = await Product.query()
       .where('snack_bar_id', params.snackbar_id)
       .with('category')
-      .with('snack_bar')
       .fetch()
 
     return products

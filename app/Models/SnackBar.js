@@ -7,9 +7,6 @@ class SnackBar extends Model {
   products() {
     return this.hasMany('App/Models/Product')
   }
-  category() {
-    return this.belongsTo('App/Models/Category')
-  }
 }
 
 module.exports = SnackBar

@@ -3,8 +3,8 @@
 const Address = use('App/Models/Address')
 
 class AddressController {
-  async index({ request, response }) {
-    const address = await Address.query().with('user').fetch()
+  async index() {
+    const address = await Address.all()
     return address
   }
 
@@ -16,7 +16,6 @@ class AddressController {
 
   async show({ params }) {
     const address = await Address.findOrFail(params.id)
-    await address.load('user')
     return address
   }
 

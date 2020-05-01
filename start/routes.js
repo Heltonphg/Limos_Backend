@@ -6,7 +6,7 @@ Route.post('users', 'UserController.store').validator('User')
 
 Route.post('sigIn', 'SessionController.store')
 
-Route.post('forgot', 'ForgotPasswordController.store')
+Route.post('forgot', 'ForgotPasswordController.store').validator('ResetPass')
 Route.put('forgot', 'ForgotPasswordController.update')
 
 Route.group(() => {
@@ -17,7 +17,7 @@ Route.group(() => {
 
   Route.get('users/:id', 'UserController.show')
   Route.get('/avatars/:id', 'AvatarController.show')
-  Route.post('/avatars', 'AvatarController.store')
+  Route.post('/avatars', 'AvatarController.store').validator('Avatar')
 }).middleware(['auth'])
 
 

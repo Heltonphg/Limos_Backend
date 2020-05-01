@@ -14,7 +14,7 @@
   "date": "The {{field}} should be a valid date",
   "date_format": "The {{field}} should be a valid date according to given format {{argument.0}}.",
   "different": "The {{field}} and {{argument.0}} should be different.",
-  "email": "The {{field}} should be a valid email address.",
+  "email": "O email informado deve ser um endereço de email válido.",
   "ends_with": "The {{field}} should end with given letters ({{argument}}).",
   "equals": "The {{field}} should should equal {{argument.0}}.",
   "in": "The {{field}} should fall within defined values of ({{argument}}).",

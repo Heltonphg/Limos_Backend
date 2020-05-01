@@ -1,5 +1,6 @@
 'use strict'
 
+const axios = use('axios')
 const Address = use('App/Models/Address')
 
 class AddressController {
@@ -9,8 +10,11 @@ class AddressController {
   }
 
   async store({ request, auth }) {
-    const data = request.all()
-    const address = await Address.create({ ...data, user_id: auth.user.id })
+    const data = request.only(['zipe_code', 'phone'])
+
+    const response = await axios.get(`https://viacep.com.br/ws/${data.zipe_code}/json/`)
+    const { localidade, uf } = response.data
+    const address = await Address.create({ ...data, city: localidade, state: uf, user_id: auth.user.id })
     return address
   }
 

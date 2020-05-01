@@ -11,7 +11,6 @@ class AvatarController {
   }
 
   async store({ request, response, auth }) {
-    const user = await auth.getUser();
     try {
       if (!request.file('file')) return
       const upload = request.file('file', { size: '2mb' })
@@ -31,7 +30,7 @@ class AvatarController {
         subtype: upload.subtype
       })
 
-      const u = await User.findByOrFail('id', user.id)
+      const u = await User.findOrFail(auth.user.id)
       u.avatar_id = file.id
       await u.save()
 

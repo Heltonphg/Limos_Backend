@@ -5,10 +5,7 @@ const SnackBar = use('App/Models/SnackBar')
 class SnackBarController {
 
   async index({ }) {
-    const snacks = await SnackBar.query()
-      .with('products')
-      .with('products.category')
-      .fetch()
+    const snacks = await SnackBar.all()
     return snacks
   }
 
@@ -18,7 +15,7 @@ class SnackBarController {
     return snack
   }
 
-  async show({ params, response }) {
+  async show({ params, request, response }) {
     try {
       const snack = await SnackBar.findOrFail(params.id)
       await snack.loadMany(['products', 'products.category'])

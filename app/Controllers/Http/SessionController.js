@@ -7,6 +7,7 @@ class SessionController {
       const { email, password } = request.all()
 
       const usr = await User.findByOrFail('email', email)
+      await usr.load('avatar')
 
       if (usr) {
         const token = await auth.attempt(email, password)

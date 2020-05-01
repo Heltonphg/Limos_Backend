@@ -32,7 +32,7 @@ class ForgotPasswordController {
 
   async update({ request, response }) {
     try {
-      const { password, token } = request.all()
+      const { password, token } = request.only(['password', 'token'])
 
       const user = await User.findByOrFail('token', token)
 

@@ -1,15 +1,13 @@
 'use strict'
 const Antl = use('Antl')
-
-class ResetPassword {
+class Category {
   get validateAll() {
     return true
   }
+
   get rules() {
     return {
-      token: 'required',
-      password: 'required|confirmed'
-
+      name: 'required'
     }
   }
   get messages() {
@@ -17,4 +15,4 @@ class ResetPassword {
   }
 }
 
-module.exports = ResetPassword
+module.exports = Category

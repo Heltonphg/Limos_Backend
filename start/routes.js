@@ -12,7 +12,7 @@ Route.put('forgot', 'ForgotPasswordController.update').validator('ResetPassword'
 Route.group(() => {
   Route.resource('addresses', 'AddressController').apiOnly().validator(new Map([[['addresses.store'], ['Addresses']]]))
   Route.resource('snackbar', 'SnackBarController').apiOnly()
-  Route.resource('category', 'CategoryController').apiOnly()
+  Route.resource('category', 'CategoryController').apiOnly().validator(new Map([[['category.store'], ['Category']]]))
   Route.resource('snackbar.products', 'ProductController').apiOnly()
 
   Route.get('users/:id', 'UserController.show')

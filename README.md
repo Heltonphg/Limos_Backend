@@ -1,5 +1,5 @@
 # Aplicação de Pontos Turísticos
-<img align="right" src="https://images.squarespace-cdn.com/content/v1/574faff6f8baf35e5da43485/1553915162526-7IVIAC9TU8QTBP6AIT6G/ke17ZwdGBToddI8pDm48kPoswlzjSVMM-SxOp7CV59BZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PI6FXy8c9PWtBlqAVlUS5izpdcIXDZqDYvprRqZ29Pw0o/110-chef.gif" width="130px;" />
+<img align="right" src="https://cdn.dribbble.com/users/1045693/screenshots/9177969/media/11556f2cd521e9f7995ba119bb08724f.gif" width="130px;" />
 
 **PS:**  Esse Projeto está sendo desenvolvido com o intuído de amplimar meus conhecimentos em Adonis JS 
 
@@ -17,7 +17,7 @@ Conecte-se comigo em [LinkedIn](https://www.linkedin.com/in/helton-wylammi-b9872
 
 ## Algumas observações
 
-para lidar com exceções: adonis make:ehandler
-Validator: adonis make:validator User
-url production: https://adoni.herokuapp.com
-url production: http://127.0.0.1:3333
+<p>para lidar com exceções: adonis make:ehandler</p>
+<p>Validator: adonis make:validator User</p>
+<p>url production: https://adoni.herokuapp.com</p>
+<p>url production: http://127.0.0.1:3333</p>

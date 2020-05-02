@@ -2,8 +2,8 @@
 <h2 align="center">Template para README.md</h2>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Heltonphg/backend_delivery">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Heltonphg/backend_delivery">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/heltonphg/backend_delivery">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/heltonphg/backend_delivery">
 </p>
 
 <img align="right" src="https://cdn.dribbble.com/users/1045693/screenshots/9177969/media/11556f2cd521e9f7995ba119bb08724f.gif" width="190px;" />

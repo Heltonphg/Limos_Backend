@@ -4,6 +4,9 @@
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/heltonphg/backend_delivery">
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/heltonphg/backend_delivery">
+   <a href="https://github.com/heltonphg/backend_delivery/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/heltonphg/backend_delivery">
+  </a>
 </p>
 
 <img align="right" src="https://cdn.dribbble.com/users/1045693/screenshots/9177969/media/11556f2cd521e9f7995ba119bb08724f.gif" width="190px;" />

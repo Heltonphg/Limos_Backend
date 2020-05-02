@@ -30,6 +30,10 @@ class User extends Model {
     return this.belongsTo('App/Models/Avatar')
   }
 
+  products_favorite() {
+    return this.hasMany('App/Models/Favorite')
+  }
+
 
 }
 

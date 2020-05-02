@@ -2,6 +2,10 @@
 
 const Route = use('Route')
 
+Route.get('/', ({ response }) => {
+  return response.send('Olá mundo!')
+})
+
 Route.post('users', 'UserController.store').validator('User')
 
 Route.post('sigIn', 'SessionController.store')

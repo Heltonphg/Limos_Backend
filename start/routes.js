@@ -17,7 +17,7 @@ Route.group(() => {
   Route.resource('addresses', 'AddressController').apiOnly().validator(new Map([[['addresses.store'], ['Addresses']]]))
   Route.resource('snackbar', 'SnackBarController').apiOnly()
   Route.resource('category', 'CategoryController').apiOnly().validator(new Map([[['category.store'], ['Category']]]))
-  Route.resource('snackbar.products', 'ProductController').apiOnly()
+  Route.resource('snackbar.products', 'ProductController').apiOnly().validator(new Map([[['snackbar.products.store'], ['Product']]]))
   Route.resource('user.favorite', 'FavoriteController').apiOnly()
 
   Route.get('users/:id', 'UserController.show')

@@ -11,8 +11,8 @@ class AlterProductSchema extends Schema {
   }
 
   down() {
-    this.table('alter_products', (table) => {
-      // reverse alternations
+    this.alter('products', (table) => {
+      table.boolean('is_empty').notNullable().defaultTo(true)
     })
   }
 }

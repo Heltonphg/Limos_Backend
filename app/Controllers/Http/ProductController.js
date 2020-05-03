@@ -19,7 +19,14 @@ class ProductController {
     return product
   }
 
-  async show({ params, request, response, view }) {
+  async show({ params, response }) {
+    const { snackbar_id, id } = params
+    const product = await Product.query()
+      .where('snack_bar_id', snackbar_id)
+      .with('category')
+      .where('id', id)
+      .fetch()
+    return product
   }
 
   async update({ params, request, response }) {

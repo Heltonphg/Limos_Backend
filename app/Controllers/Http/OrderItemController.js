@@ -4,9 +4,10 @@ const OrderItem = use('App/Models/OrderItem')
 
 class OrderItemController {
 
-  async index({ params }) {
+  async index({ request }) {
+    const { order_id } = request.headers()
     const orders = await OrderItem.query()
-      .where('order_id', params.order_id)
+      .where('order_id', order_id)
       .fetch()
     return orders
   }

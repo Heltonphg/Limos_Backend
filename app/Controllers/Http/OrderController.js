@@ -12,19 +12,22 @@ class OrderController {
         .where('snack_bar_id', snack_bar_id)
         .with('user')
         .with('snack_bar')
+        .with('orders_items')
         .fetch()
     } else {
       orders = await Order.query()
         .with('user')
         .with('snack_bar')
+        .with('orders_items')
         .fetch()
     }
     return orders
   }
 
   async store({ request, auth }) {
+    const { snack_bar_id } = request.headers()
     const data = request.all()
-    const order = await Order.create({ ...data, user_id: auth.user.id })
+    const order = await Order.create({ ...data, snack_bar_id: snack_bar_id, user_id: auth.user.id })
     return order
   }
 

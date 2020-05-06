@@ -11,6 +11,10 @@ class Order extends Model {
   snack_bar() {
     return this.belongsTo('App/Models/SnackBar')
   }
+
+  orders_items() {
+    return this.hasMany('App/Models/OrderItem')
+  }
 }
 
 module.exports = Order

@@ -23,6 +23,7 @@ class OrderSchema extends Schema {
       table.string('status').defaultTo('Em Análise...')
       table.string('comment').defaultTo('')
       table.string('motivo_negado').defaultTo('')
+      table.boolean('is_active').defaultTo(true)
       table.timestamps()
     })
   }

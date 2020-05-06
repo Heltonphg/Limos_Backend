@@ -30,10 +30,26 @@ class ProductController {
   }
 
   async update({ params, request, response }) {
+    const data = request.all()
+    const product = await Product.findOrFail(params.id)
+    if (product.snack_bar_id == params.snackbar_id) {
+      product.merge(data)
+      await product.save()
+      return product
+    } else {
+      return response.status(401).send("Você não pode editar esse produto.")
+    }
   }
 
-  async destroy({ params, request, response }) {
+  async destroy({ params, response }) {
+    const product = await Product.findOrFail(params.id)
+    if (product.snack_bar_id == params.snackbar_id) {
+      await product.delete()
+    } else {
+      return response.status(401).send("Você não pode excluir esse produto.")
+    }
   }
 }
+
 
 module.exports = ProductController

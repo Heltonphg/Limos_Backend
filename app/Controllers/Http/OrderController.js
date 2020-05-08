@@ -5,14 +5,16 @@ const Order = use('App/Models/Order')
 class OrderController {
 
   async index({ request }) {
-    const { snack_bar_id } = request.get()
+    const { snack_bar_id, user_id } = request.get()
     let orders = []
-    if (snack_bar_id) {
+    if (snack_bar_id || user_id) {
       orders = await Order.query()
         .where('snack_bar_id', snack_bar_id)
+        .where('user_id', user_id)
         .with('user')
         .with('snack_bar')
         .with('orders_items')
+        .with('orders_items.product')
         .fetch()
     } else {
       orders = await Order.query()
@@ -37,7 +39,22 @@ class OrderController {
     return order
   }
 
+
   async update({ params, request, response }) {
+    const { snack_bar_id } = request.headers()
+    try {
+      const data = request.only(['status', 'motivo_negado'])
+      const order = await Order.findOrFail(params.id)
+      if (snack_bar_id == order.snack_bar_id) {
+        order.merge(data)
+        await order.save()
+        return order
+      } else {
+        return response.status(401).send("Você não pode alterar esse Pedido.")
+      }
+    } catch (error) {
+      return response.status(error.status).send("Houve algum erro na edição.")
+    }
   }
 
   async destroy({ params, response, auth }) {

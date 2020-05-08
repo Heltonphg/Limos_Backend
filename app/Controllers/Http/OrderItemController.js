@@ -1,6 +1,7 @@
 'use strict'
 
 const OrderItem = use('App/Models/OrderItem')
+const Order = use('App/Models/Order')
 
 class OrderItemController {
 
@@ -12,8 +13,28 @@ class OrderItemController {
     return orders
   }
 
+  async store({ request, response, auth }) {
+    const data = await request.all();
 
-  async store({ request, response }) {
+    const order = await Order.query()
+      .where('is_active', true)
+      .where('user_id', auth.user.id)
+      .first()
+    if (order) {
+      const arr_produts = Object.keys(data).map(e => {
+        return ({ ...data[e], order_id: order.id })
+      })
+
+      arr_produts.forEach(element => {
+        OrderItem.create(element)
+      });
+
+      order.is_active = false
+      await order.save()
+      return response.status(200).send()
+
+    }
+
   }
 
 

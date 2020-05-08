@@ -21,18 +21,24 @@ class OrderItemController {
       .where('user_id', auth.user.id)
       .first()
     if (order) {
+      let price_total = 0
       const arr_produts = Object.keys(data).map(e => {
         return ({ ...data[e], order_id: order.id })
       })
 
       arr_produts.forEach(element => {
+        price_total += element.price * element.quantity
         OrderItem.create(element)
       });
 
+
       order.is_active = false
+      order.valor_total = price_total
       await order.save()
       return response.status(200).send()
 
+    } else {
+      console.log('nenhuma ordem ativa')
     }
 
   }

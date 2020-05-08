@@ -20,6 +20,7 @@ class OrderItemSchema extends Schema {
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.float('discount', [8], [2]).defaultTo(0)
+      table.float('price', [8], [2]).notNullable()
       table.integer('quantity').notNullable().defaultTo(1)
 
       table.timestamps()

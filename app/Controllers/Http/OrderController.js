@@ -26,8 +26,15 @@ class OrderController {
     return orders
   }
 
-  async store({ request, auth }) {
+  async store({ request, auth, response }) {
     const { snack_bar_id } = request.headers()
+    const ultima_order = await Order.query()
+      .where('snack_bar_id', snack_bar_id)
+      .where('is_active', true)
+      .first()
+    if (ultima_order) {
+      return response.status(400).send({ error: { message: "já existe uma ordem ativa" } })
+    }
     const data = request.all()
     const order = await Order.create({ ...data, snack_bar_id: snack_bar_id, user_id: auth.user.id })
     return order

@@ -19,7 +19,7 @@ class OrderSchema extends Schema {
         .inTable('snack_bars')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
-
+      table.float('valor_total', [8], [2]).defaultTo(0)
       table.string('status').defaultTo('Em Análise...')
       table.string('comment').defaultTo('')
       table.string('motivo_negado').defaultTo('')

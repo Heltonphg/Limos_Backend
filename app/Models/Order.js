@@ -12,6 +12,10 @@ class Order extends Model {
     return this.belongsTo('App/Models/SnackBar')
   }
 
+  address() {
+    return this.belongsTo('App/Models/Address')
+  }
+
   orders_items() {
     return this.hasMany('App/Models/OrderItem')
   }

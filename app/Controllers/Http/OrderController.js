@@ -13,6 +13,7 @@ class OrderController {
         .where('user_id', user_id)
         .with('user')
         .with('snack_bar')
+        .with('address')
         .with('orders_items')
         .with('orders_items.product')
         .fetch()
@@ -21,6 +22,7 @@ class OrderController {
         .with('user')
         .with('snack_bar')
         .with('orders_items')
+        .with('address')
         .fetch()
     }
     return orders

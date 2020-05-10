@@ -1,11 +1,12 @@
 'use strict'
-
+const server = use('Server')
+const io = use('socket.io')(server.getInstance())
 const SnackBar = use('App/Models/SnackBar')
 
 class SnackBarController {
 
   async index({ }) {
-    const snacks = await SnackBar.all()
+    const snacks = await SnackBar.query().orderBy('id', 'asc').fetch()
     return snacks
   }
 
@@ -32,7 +33,9 @@ class SnackBarController {
     snack.merge(data)
     await snack.save()
 
+    io.emit('snack', snack);
     return snack
+
   }
 
   async destroy({ params }) {

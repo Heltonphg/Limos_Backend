@@ -18,6 +18,7 @@ Route.get('/avatars/:id', 'AvatarController.show')
 
 Route.group(() => {
   Route.resource('addresses', 'AddressController').apiOnly().validator(new Map([[['addresses.store'], ['Addresses']]]))
+  Route.resource('snack_address', 'SnackAddressController').apiOnly().validator(new Map([[['addresses.store'], ['Addresses']]]))
   Route.resource('snackbar', 'SnackBarController').apiOnly().validator(new Map([[['snackbar.store'], ['SnackBar']]]))
   Route.resource('category', 'CategoryController').apiOnly().validator(new Map([[['category.store'], ['Category']]]))
   Route.resource('snackbar.products', 'ProductController').apiOnly().validator(new Map([[['snackbar.products.store'], ['Product']]]))

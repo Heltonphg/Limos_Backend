@@ -7,6 +7,10 @@ class SnackBar extends Model {
   products() {
     return this.hasMany('App/Models/Product')
   }
+
+  snack_address() {
+    return this.belongsTo('App/Models/SnackAddress')
+  }
 }
 
 module.exports = SnackBar

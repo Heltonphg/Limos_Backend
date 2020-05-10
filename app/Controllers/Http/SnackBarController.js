@@ -19,7 +19,7 @@ class SnackBarController {
   async show({ params, request, response }) {
     try {
       const snack = await SnackBar.findOrFail(params.id)
-      await snack.loadMany(['products', 'products.category'])
+      await snack.loadMany(['products', 'snack_address', 'products.category'])
       return snack
     } catch (error) {
       return response.status(error.status).json({ error: { message: "Lanchonete não existe" } })

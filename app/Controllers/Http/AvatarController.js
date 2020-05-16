@@ -5,17 +5,12 @@ const Helpers = use('Helpers')
 const User = use('App/Models/User')
 
 class AvatarController {
-  async show({ params, response }) {
-    const { file } = await Avatar.findOrFail(params.id)
-    return response.download(Helpers.tmpPath(`uploads/${file}`))
-  }
-
   async store({ request, response, auth }) {
     try {
       if (!request.file('file')) return
       const upload = request.file('file', { size: '2mb' })
       const fileName = `${Date.now()}.${upload.subtype}`
-      await upload.move(Helpers.tmpPath('uploads'), {
+      await upload.move(Helpers.publicPath('avatars'), {
         name: fileName
       })
 

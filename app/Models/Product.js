@@ -9,7 +9,7 @@ class Product extends Model {
   }
 
   getImg() {
-    return `${Env.get('APP_URL')}/product/${this.id}`
+    return `http://10.0.0.107:3333/images_products/${this.image}`
   }
 
   category() {

@@ -15,21 +15,15 @@ class ProductController {
     return products
   }
 
-  async showlogo({ params, response }) {
-    const { image } = await Product.findOrFail(params.id)
-    if (!image) return
-    return response.download(Helpers.tmpPath(`images_products/${image}`))
-  }
-
 
   async store({ request, params, response }) {
     try {
       const data = request.all()
 
-      if (!request.file('imag')) return
-      const upload = request.file('imag', { size: '2mb' })
+      if (!request.file('image')) return
+      const upload = request.file('image', { size: '2mb' })
       const fileName = `${Date.now()}.${upload.subtype}`
-      await upload.move(Helpers.tmpPath('images_products'), {
+      await upload.move(Helpers.publicPath('images_products'), {
         name: fileName
       })
 
@@ -58,10 +52,25 @@ class ProductController {
   }
 
   async update({ params, request, response }) {
-    const data = request.all()
     const product = await Product.findOrFail(params.id)
+    const data = request.all()
+
     if (product.snack_bar_id == params.snackbar_id) {
-      product.merge(data)
+      if (request.file('image')) {
+        const upload = request.file('image', { size: '2mb' })
+        const fileName = `${Date.now()}.${upload.subtype}`
+        await upload.move(Helpers.publicPath('images_products'), {
+          name: fileName
+        })
+
+        if (!upload.moved()) {
+          throw upload.error()
+        }
+
+        product.merge({ ...data, 'image': fileName })
+      } else {
+        product.merge(data)
+      }
       await product.save()
       return product
     } else {

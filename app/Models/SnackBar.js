@@ -1,9 +1,16 @@
 'use strict'
-
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
+const Env = use('Env')
 const Model = use('Model')
 
 class SnackBar extends Model {
+  static get computed() {
+    return ['logoimg']
+  }
+
+  getLogoimg() {
+    return `http://10.0.0.107:3333/logos/${this.logo}`
+  }
+
   products() {
     return this.hasMany('App/Models/Product')
   }

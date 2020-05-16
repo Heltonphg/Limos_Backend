@@ -13,8 +13,6 @@ Route.post('sigIn', 'SessionController.store')
 Route.post('forgot', 'ForgotPasswordController.store').validator('ResetPass')
 Route.put('forgot', 'ForgotPasswordController.update').validator('ResetPassword')
 
-Route.get('/product/:id', 'ProductController.showlogo')
-Route.get('/avatars/:id', 'AvatarController.show')
 
 Route.group(() => {
   Route.resource('addresses', 'AddressController').apiOnly().validator(new Map([[['addresses.store'], ['Addresses']]]))

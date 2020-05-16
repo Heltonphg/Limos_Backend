@@ -5,11 +5,11 @@ const Env = use('Env')
 
 class Avatar extends Model {
   static get computed() {
-    return ['url']
+    return ['avatarurl']
   }
 
-  getUrl({ id }) {
-    return `${Env.get('APP_URL')}/avatars/${id}`
+  getAvatarurl() {
+    return `http://10.0.0.107:3333/avatars/${this.file}`
   }
 
 }

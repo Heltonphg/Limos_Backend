@@ -53,6 +53,7 @@ class ForgotPasswordController {
       user.password = password
 
       await user.save()
+      return response.status(200).send({ message: 'Senha recuperada' })
     } catch (error) {
       return response.status(error.status).json({
         error: {

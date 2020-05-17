@@ -6,11 +6,22 @@ const Env = use('Env')
 
 class ProductController {
 
-  async index({ params }) {
-    const products = await Product.query()
-      .where('snack_bar_id', params.snackbar_id)
-      .with('category')
-      .fetch()
+  async index({ params, request }) {
+    const { category_id } = request.get()
+    let products = []
+    if (category_id) {
+      products = await Product.query()
+        .where('snack_bar_id', params.snackbar_id)
+        .where('category_id', category_id)
+        .with('category')
+        .fetch()
+    } else {
+      products = await Product.query()
+        .where('snack_bar_id', params.snackbar_id)
+        .with('category')
+        .fetch()
+    }
+
 
     return products
   }

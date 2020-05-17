@@ -31,3 +31,4 @@ Conecte-se comigo em [LinkedIn](https://www.linkedin.com/in/helton-wylammi-b9872
 <p>Validator: adonis make:validator User</p>
 <p>url production: https://adoni.herokuapp.com</p>
 <p>url production: http://127.0.0.1:3333</p>
+ALTER TABLE public.snack_bars DROP COLUMN ...;

@@ -15,14 +15,7 @@ class AlterSnackSchema extends Schema {
     })
   }
   down() {
-    this.alter('snack_bars', (table) => {
-      table.integer('snack_address_id')
-        .unsigned()
-        .references('id')
-        .inTable('snack_addresses')
-        .onUpdate('CASCADE')
-        .onDelete('SET NULL')
-    })
+    this.drop('snack_bars')
   }
 }
 

@@ -16,7 +16,7 @@ class SnackBarController {
       if (!request.file('logo')) return
       const upload = request.file('logo', { size: '2mb' })
       const fileName = `${Date.now()}.${upload.subtype}`
-      await upload.move(Helpers.tmpPath('uploads'), {
+      await upload.move(Helpers.publicPath('logos'), {
         name: fileName
       })
 
@@ -25,6 +25,7 @@ class SnackBarController {
       }
 
       const snack = await SnackBar.create({ ...data, 'logo': fileName })
+      io.emit('new_snack', snack);
       return snack
     } catch (error) {
       return response.status(error.status).json(

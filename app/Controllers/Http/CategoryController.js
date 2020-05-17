@@ -5,7 +5,7 @@ const Category = use('App/Models/Category')
 class CategoryController {
 
   async index({ }) {
-    const categories = await Category.all()
+    const categories = await Category.query().orderBy('id', 'asc').fetch()
     return categories
   }
 

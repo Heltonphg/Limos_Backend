@@ -11,7 +11,8 @@ class Product {
     return {
       name: 'required',
       preco: 'required',
-      description: 'required'
+      description: 'required',
+      category_id: 'required'
     }
   }
 

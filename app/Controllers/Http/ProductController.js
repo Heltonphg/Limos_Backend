@@ -13,16 +13,16 @@ class ProductController {
       products = await Product.query()
         .where('snack_bar_id', params.snackbar_id)
         .where('category_id', category_id)
+        .orderBy('avaliation', 'desc')
         .with('category')
         .fetch()
     } else {
       products = await Product.query()
         .where('snack_bar_id', params.snackbar_id)
+        .orderBy('avaliation', 'desc')
         .with('category')
         .fetch()
     }
-
-
     return products
   }
 
@@ -30,16 +30,16 @@ class ProductController {
   async store({ request, params, response }) {
     try {
       const data = request.all()
-
-      if (!request.file('image')) return
-      const upload = request.file('image', { size: '2mb' })
-      const fileName = `${Date.now()}.${upload.subtype}`
-      await upload.move(Helpers.publicPath('images_products'), {
-        name: fileName
-      })
-
-      if (!upload.moved()) {
-        throw upload.error()
+      let fileName = ''
+      if (request.file('image')) {
+        const upload = request.file('image', { size: '2mb' })
+        fileName = `${Date.now()}.${upload.subtype}`
+        await upload.move(Helpers.publicPath('images_products'), {
+          name: fileName
+        })
+        if (!upload.moved()) {
+          throw upload.error()
+        }
       }
 
       const product = await Product.create({ ...data, snack_bar_id: params.snackbar_id, 'image': fileName })

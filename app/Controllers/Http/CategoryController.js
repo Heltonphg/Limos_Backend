@@ -24,7 +24,7 @@ class CategoryController {
 
 
   async update({ params, request }) {
-    const name = request.only(['name'])
+    const name = request.all()
     const category = await Category.findOrFail(params.id)
     category.merge(name)
     await category.save()

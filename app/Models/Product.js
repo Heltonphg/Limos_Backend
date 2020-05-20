@@ -15,8 +15,13 @@ class Product extends Model {
   category() {
     return this.belongsTo('App/Models/Category')
   }
+
   snack_bar() {
     return this.belongsTo('App/Models/SnackBar')
+  }
+
+  product_sizes() {
+    return this.hasMany('App/Models/ProductSize')
   }
 
 

@@ -2,7 +2,8 @@
 
 const Product = use('App/Models/Product')
 const Helpers = use('Helpers')
-const Env = use('Env')
+const sharp = require('sharp')
+const fs = require('fs')
 
 class ProductController {
 
@@ -40,8 +41,23 @@ class ProductController {
         await upload.move(Helpers.publicPath('images_products'), {
           name: fileName
         })
+        await sharp(`${Helpers.publicPath('images_products')}/${fileName}`)
+          .resize(400, 400)
+          .extract({ left: 0, top: 0, width: 400, height: 400 })
+          .jpeg({ quality: 70 })
+          .toFile(`${Helpers.publicPath('images_products')}/resized/${fileName}`)
+          .then(data => {
+            try {
+              fs.unlinkSync(`${Helpers.publicPath('images_products')}/${fileName}`)
+            } catch (error) {
+              console.log(error)
+            }
+          })
         if (!upload.moved()) {
-          throw upload.error()
+          const error = upload.error()
+          return response
+            .status(401)
+            .send({ error: { message: error } })
         }
       }
 
@@ -89,7 +105,7 @@ class ProductController {
       await product.save()
       return product
     } else {
-      return response.status(401).send("Você não pode editar esse produto.")
+      return response.status(401).send({ error: { message: "Você não pode editar esse produto." } })
     }
   }
 
@@ -98,7 +114,7 @@ class ProductController {
     if (product.snack_bar_id == params.snackbar_id) {
       await product.delete()
     } else {
-      return response.status(401).send("Você não pode excluir esse produto.")
+      return response.status(401).send({ error: { message: "Você não pode excluir esse produto." } })
     }
   }
 }

@@ -38,7 +38,7 @@ class OrderItemController {
       return response.status(200).send()
 
     } else {
-      console.log('nenhuma ordem ativa')
+      return response.status(200).send({ error: { message: 'nenhuma ordem ativa' } })
     }
 
   }

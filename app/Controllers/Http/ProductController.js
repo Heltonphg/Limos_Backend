@@ -16,14 +16,18 @@ class ProductController {
         .where('category_id', category_id)
         .orderBy('avaliation', 'desc')
         .with('category')
-        .with('product_sizes')
+        .with('product_sizes', (builder) => {
+          builder.orderBy("preco", 'asc');
+        })
         .fetch()
     } else {
       products = await Product.query()
         .where('snack_bar_id', params.snackbar_id)
         .orderBy('avaliation', 'desc')
         .with('category')
-        .with('product_sizes')
+        .with('product_sizes', (builder) => {
+          builder.orderBy("preco", 'asc');
+        })
         .fetch()
     }
 
@@ -76,7 +80,9 @@ class ProductController {
     const product = await Product.query()
       .where('snack_bar_id', snackbar_id)
       .with('category')
-      .with('product_sizes')
+      .with('product_sizes', (builder) => {
+        builder.orderBy("preco", 'asc');
+      })
       .where('id', id)
       .fetch()
     return product

@@ -26,6 +26,9 @@ class ProductSizeController {
   }
 
   async destroy({ params, request, response }) {
+    const { id } = params
+    const product_size = await ProductSize.findOrFail(id)
+    await product_size.delete()
   }
 }
 

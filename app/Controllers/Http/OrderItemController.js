@@ -35,7 +35,7 @@ class OrderItemController {
       order.is_active = false
       order.valor_total = price_total
       await order.save()
-      return response.status(200).send()
+      return response.status(200).send({ message: 'Pedido realizado' })
 
     } else {
       return response.status(200).send({ error: { message: 'nenhuma ordem ativa' } })

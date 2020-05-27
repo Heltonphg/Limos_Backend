@@ -1,10 +1,9 @@
 'use strict'
 const Bag = use('App/Models/Bag')
-const SnackBar = use('App/Models/SnackBar')
-
 class BagController {
 
   async index({ auth }) {
+
     const user_id = auth.user.id
     const products_bag = await Bag.query()
       .where('user_id', user_id)
@@ -21,8 +20,8 @@ class BagController {
       return response.status(400).send({ error: { message: 'Produto já adicionado' } })
     } else {
       const products_bag = await Bag.query().first();
-      if (products_bag.snack_bar_id !== data.snack_bar_id) {
-        return response.status(400).send({ error: { message: 'Já existe produtos de outra lanchonete na sacola, deseja removelos?' } })
+      if (products_bag && products_bag.snack_bar_id !== data.snack_bar_id) {
+        return response.status(400).send({ error: { message: 'Já existe produtos de outra lanchonete na sacola' } })
       } else {
         const user_id = auth.user.id
         const product_bag = await Bag.create({ ...data, user_id })

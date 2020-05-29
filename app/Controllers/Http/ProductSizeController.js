@@ -6,7 +6,7 @@ class ProductSizeController {
   async index({ params }) {
     const sizes = await ProductSize.query()
       .where('product_id', params.products_id)
-      .orderBy('preco', 'asc')
+      .orderBy('price', 'asc')
       .fetch()
 
     return sizes;
@@ -23,6 +23,10 @@ class ProductSizeController {
   }
 
   async update({ params, request, response }) {
+    const product_size = await ProductSize.findOrFail(params.id)
+    product_size.merge(request.all())
+    await product_size.save()
+    return product_size
   }
 
   async destroy({ params, request, response }) {

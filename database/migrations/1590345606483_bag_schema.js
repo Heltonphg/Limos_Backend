@@ -30,7 +30,7 @@ class BagSchema extends Schema {
         .notNullable()
       table.string('size')
       table.integer('quantity').notNullable().defaultTo(1)
-      table.float('preco', [8], [2]).notNullable()
+      table.float('price', [8], [2]).notNullable()
       table.float('preco_original', [8], [2]).notNullable()
       table.timestamps()
     })

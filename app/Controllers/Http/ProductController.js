@@ -17,7 +17,7 @@ class ProductController {
         .orderBy('avaliation', 'desc')
         .with('category')
         .with('product_sizes', (builder) => {
-          builder.orderBy("preco", 'asc');
+          builder.orderBy("price", 'asc');
         })
         .fetch()
     } else {
@@ -26,7 +26,7 @@ class ProductController {
         .orderBy('avaliation', 'desc')
         .with('category')
         .with('product_sizes', (builder) => {
-          builder.orderBy("preco", 'asc');
+          builder.orderBy("price", 'asc');
         })
         .fetch()
     }
@@ -65,7 +65,7 @@ class ProductController {
         }
       }
 
-      const product = await Product.create({ ...data, snack_bar_id: params.snackbar_id, 'image': fileName })
+      const product = await Product.create({ ...data, snack_bar_id: params.snackbar_id, 'image': fileName, description: data.description.trim() })
 
       return product
     } catch (error) {
@@ -81,7 +81,7 @@ class ProductController {
       .where('snack_bar_id', snackbar_id)
       .with('category')
       .with('product_sizes', (builder) => {
-        builder.orderBy("preco", 'asc');
+        builder.orderBy("price", 'asc');
       })
       .where('id', id)
       .fetch()
@@ -104,7 +104,7 @@ class ProductController {
           throw upload.error()
         }
 
-        product.merge({ ...data, 'image': fileName })
+        product.merge({ ...data, 'image': fileName, })
       } else {
         product.merge(data)
       }

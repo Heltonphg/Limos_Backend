@@ -10,7 +10,7 @@ class Product {
   get rules() {
     return {
       name: 'required',
-      preco: 'required',
+      price: 'required',
       description: 'required',
       category_id: 'required'
     }

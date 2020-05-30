@@ -1,21 +1,22 @@
-'use strict'
-const Antl = use('Antl')
+"use strict";
+const Antl = use("Antl");
 
 class SnackBar {
   get validateAll() {
-    return true
+    return true;
   }
 
   get rules() {
     return {
-      name: 'required|unique:snack_bars',
-      payment: 'required'
-    }
+      name: "required|unique:snack_bars",
+      payment: "required",
+      categories: "required",
+    };
   }
 
   get messages() {
-    return Antl.list('validation')
+    return Antl.list("validation");
   }
 }
 
-module.exports = SnackBar
+module.exports = SnackBar;

@@ -1,14 +1,17 @@
 'use strict'
 const Bag = use('App/Models/Bag')
+const Product = use('App/Models/Product')
 class BagController {
 
   async index({ auth }) {
-
     const user_id = auth.user.id
     const products_bag = await Bag.query()
       .where('user_id', user_id)
-      .with('product')
+      .with('product', (buider) => {
+        buider.with('category')
+      })
       .with('snack_bar')
+      .orderBy('created_at', 'asc')
       .fetch()
     return products_bag
   }
@@ -33,7 +36,13 @@ class BagController {
   async show({ params, request, response, view }) {
   }
 
-  async update({ params, request, response }) {
+  async update({ params, request }) {
+    const data = request.all()
+    const { id } = params
+    const product_bag = await Bag.findOrFail(id)
+    product_bag.merge(data)
+    await product_bag.save()
+    return product_bag
   }
 
   async destroy({ params, request, response }) {

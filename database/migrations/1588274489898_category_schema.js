@@ -8,6 +8,7 @@ class CategorySchema extends Schema {
     this.create('categories', (table) => {
       table.increments()
       table.string('name')
+      table.string('image_default_product').defaultTo("")
       table.timestamps()
     })
   }

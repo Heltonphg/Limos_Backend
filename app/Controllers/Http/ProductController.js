@@ -6,12 +6,15 @@ const sharp = require("sharp");
 const fs = require("fs");
 
 class ProductController {
-  async index({ params, request }) {
+  async index({ params, request, auth }) {
     const { category_id } = request.get();
     let products = [];
     if (category_id) {
       products = await Product.query()
-        .where("snack_bar_id", params.snackbar_id)
+        .where(
+          "snack_bar_id",
+          params.snackbar_id ? params.snackbar_id : auth.user.id
+        )
         .where("category_id", category_id)
         .orderBy("avaliation", "desc")
         .with("category")
@@ -21,7 +24,7 @@ class ProductController {
         .fetch();
     } else {
       products = await Product.query()
-        .where("snack_bar_id", params.snackbar_id)
+        .where("snack_bar_id", auth.user.id)
         .orderBy("avaliation", "desc")
         .with("category")
         .with("product_sizes", (builder) => {
@@ -34,7 +37,7 @@ class ProductController {
   }
 
   //refatorar
-  async store({ request, params, response }) {
+  async store({ request, auth, response }) {
     try {
       const data = request.all();
       let fileName = "";
@@ -68,7 +71,7 @@ class ProductController {
 
       const product = await Product.create({
         ...data,
-        snack_bar_id: params.snackbar_id,
+        snack_bar_id: auth.user.id,
         image: fileName,
         description: data.description.trim(),
       });
@@ -81,10 +84,10 @@ class ProductController {
     }
   }
 
-  async show({ params }) {
-    const { snackbar_id, id } = params;
+  async show({ params, auth }) {
+    const { id } = params;
     const product = await Product.query()
-      .where("snack_bar_id", snackbar_id)
+      .where("snack_bar_id", auth.user.id)
       .with("category")
       .with("product_sizes", (builder) => {
         builder.orderBy("price", "asc");
@@ -123,9 +126,9 @@ class ProductController {
     }
   }
 
-  async destroy({ params, response }) {
+  async destroy({ params, auth, response }) {
     const product = await Product.findOrFail(params.id);
-    if (product.snack_bar_id == params.snackbar_id) {
+    if (product.snack_bar_id == auth.user.id) {
       await product.delete();
     } else {
       return response

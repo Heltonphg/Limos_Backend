@@ -1,59 +1,49 @@
-'use strict'
+"use strict";
 
-const OrderItem = use('App/Models/OrderItem')
-const Order = use('App/Models/Order')
+const OrderItem = use("App/Models/OrderItem");
+const Order = use("App/Models/Order");
 
 class OrderItemController {
-
   async index({ request }) {
-    const { order_id } = request.headers()
-    const orders = await OrderItem.query()
-      .where('order_id', order_id)
-      .fetch()
-    return orders
+    const { order_id } = request.headers();
+    const orders = await OrderItem.query().where("order_id", order_id).fetch();
+    return orders;
   }
 
   async store({ request, response, auth }) {
     const data = await request.all();
-
+    const { order_id } = request.headers();
     const order = await Order.query()
-      .where('is_active', true)
-      .where('user_id', auth.user.id)
-      .first()
+      .where("is_active", true)
+      .where("user_id", auth.user.id)
+      .first();
     if (order) {
-      let price_total = 0
-      const arr_produts = Object.keys(data).map(e => {
-        return ({ ...data[e], order_id: order.id })
-      })
-
-      arr_produts.forEach(element => {
-        price_total += element.price * element.quantity
-        OrderItem.create(element)
+      let price_total = 0;
+      const arr_produts = Object.keys(data).map((e) => {
+        return { ...data[e], order_id };
       });
 
+      arr_produts.forEach((element) => {
+        price_total += element.price * element.quantity;
+        OrderItem.create(element);
+      });
 
-      order.is_active = false
-      order.valor_total = price_total
-      await order.save()
-      return response.status(200).send({ message: 'Pedido realizado' })
-
+      order.is_active = false;
+      order.valor_total = price_total;
+      await order.save();
+      return response.status(200).send({ message: "Pedido realizado" });
     } else {
-      return response.status(200).send({ error: { message: 'nenhuma ordem ativa' } })
+      return response
+        .status(200)
+        .send({ error: { message: "nenhuma ordem ativa" } });
     }
-
   }
 
+  async show({ params, request, response, view }) {}
 
-  async show({ params, request, response, view }) {
-  }
+  async update({ params, request, response }) {}
 
-
-  async update({ params, request, response }) {
-  }
-
-
-  async destroy({ params, request, response }) {
-  }
+  async destroy({ params, request, response }) {}
 }
 
-module.exports = OrderItemController
+module.exports = OrderItemController;

@@ -15,6 +15,8 @@ class SnackBar extends Model {
         snackbarInstance.password = await Hash.make(snackbarInstance.password);
       }
     });
+
+    
   }
 
   getLogoimg() {

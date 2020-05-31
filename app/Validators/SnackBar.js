@@ -9,8 +9,10 @@ class SnackBar {
   get rules() {
     return {
       name: "required|unique:snack_bars",
+      email: "required|unique:snack_bars",
       payment: "required",
       categories: "required",
+      password: "required",
     };
   }
 

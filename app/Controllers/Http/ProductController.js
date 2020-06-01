@@ -1,6 +1,8 @@
 "use strict";
 
 const Product = use("App/Models/Product");
+const Category = use("App/Models/Category");
+
 const Helpers = use("Helpers");
 const sharp = require("sharp");
 const fs = require("fs");
@@ -40,6 +42,13 @@ class ProductController {
   async store({ request, auth, response }) {
     try {
       const data = request.all();
+      const cat_exist = await Category.find(data.category_id);
+      if (!cat_exist) {
+        return response
+          .status(401)
+          .send({ message: { error: "Categoria informada não existe!" } });
+      }
+
       let fileName = "";
       if (request.file("image")) {
         const upload = request.file("image", { size: "2mb" });

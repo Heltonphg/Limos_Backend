@@ -11,31 +11,33 @@ class OrderItemController {
   }
 
   async store({ request, response, auth }) {
-    const data = await request.all();
-    const { order_id } = request.headers();
-    const order = await Order.query()
-      .where("is_active", true)
-      .where("user_id", auth.user.id)
-      .first();
-    if (order) {
-      let price_total = 0;
-      const arr_produts = Object.keys(data).map((e) => {
-        return { ...data[e], order_id };
-      });
-
-      arr_produts.forEach((element) => {
-        price_total += element.price * element.quantity;
-        OrderItem.create(element);
-      });
-
-      order.is_active = false;
-      order.valor_total = price_total;
-      await order.save();
-      return response.status(200).send({ message: "Pedido realizado" });
-    } else {
-      return response
-        .status(200)
-        .send({ error: { message: "nenhuma ordem ativa" } });
+    try {
+      const data = await request.all();
+      order_id = parseInt(order_id, 10);
+      const order = await Order.query()
+        .where("is_active", true)
+        .where("user_id", auth.user.id)
+        .first();
+      if (order) {
+        let price_total = 0;
+        const arr_produts = Object.keys(data).map((e) => {
+          return { ...data[e], order_id: order.id };
+        });
+        arr_produts.forEach((element) => {
+          price_total += element.preco * element.quantity;
+          OrderItem.create(element);
+        });
+        order.is_active = false;
+        order.valor_total = price_total;
+        await order.save();
+        return response.status(200).send({ message: "Pedido realizado" });
+      } else {
+        return response
+          .status(200)
+          .send({ error: { message: "nenhuma ordem ativa" } });
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 

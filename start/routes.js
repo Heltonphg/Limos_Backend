@@ -32,6 +32,7 @@ Route.group(() => {
 
   Route.resource("category", "CategoryController").only(["index"]);
 
+  //TODO: rota para buscas os produtos para o app
   Route.resource("snackbar.products", "ProductController").only(["index"]);
 
   Route.resource("products_bag", "BagController").apiOnly();
@@ -56,7 +57,7 @@ Route.group(() => {
     .apiOnly()
     .validator(new Map([[["snackbar.store"], ["SnackBar"]]]));
 
-  Route.resource("category", "CategoryController")
+  Route.resource("category_snack", "CategoryController")
     .apiOnly()
     .validator(new Map([[["category.store"], ["Category"]]]));
 

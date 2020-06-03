@@ -21,6 +21,7 @@ class OrderController {
         .with("user")
         .with("snack_bar")
         .with("orders_items")
+        .with("orders_items.product")
         .with("address")
         .fetch();
     }

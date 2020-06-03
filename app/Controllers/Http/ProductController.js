@@ -38,6 +38,20 @@ class ProductController {
     return products;
   }
 
+  async recortar(fileName) {
+    await sharp(`${Helpers.publicPath("images_products")}/${fileName}`)
+      .resize(520)
+      .jpeg({ quality: 70 })
+      .toFile(`${Helpers.publicPath("images_products")}/resized/${fileName}`)
+      .then((data) => {
+        try {
+          fs.unlinkSync(`${Helpers.publicPath("images_products")}/${fileName}`);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+  }
+
   //refatorar
   async store({ request, auth, response }) {
     try {
@@ -56,26 +70,13 @@ class ProductController {
         await upload.move(Helpers.publicPath("images_products"), {
           name: fileName,
         });
-        await sharp(`${Helpers.publicPath("images_products")}/${fileName}`)
-          .resize(400, 400)
-          .extract({ left: 0, top: 0, width: 400, height: 400 })
-          .jpeg({ quality: 70 })
-          .toFile(
-            `${Helpers.publicPath("images_products")}/resized/${fileName}`
-          )
-          .then((data) => {
-            try {
-              fs.unlinkSync(
-                `${Helpers.publicPath("images_products")}/${fileName}`
-              );
-            } catch (error) {
-              console.log(error);
-            }
-          });
+
         if (!upload.moved()) {
           const error = upload.error();
           return response.status(401).send({ error: { message: error } });
         }
+
+        await this.recortar(fileName);
       }
 
       const product = await Product.create({
@@ -106,11 +107,11 @@ class ProductController {
     return product;
   }
 
-  async update({ params, request, response }) {
+  async update({ auth, request, response, params }) {
     const product = await Product.findOrFail(params.id);
     const data = request.all();
 
-    if (product.snack_bar_id == params.snackbar_id) {
+    if (product.snack_bar_id == auth.user.id) {
       if (request.file("image")) {
         const upload = request.file("image", { size: "2mb" });
         const fileName = `${Date.now()}.${upload.subtype}`;
@@ -121,6 +122,12 @@ class ProductController {
         if (!upload.moved()) {
           throw upload.error();
         }
+
+        await this.recortar(fileName);
+
+        fs.unlinkSync(
+          `${Helpers.publicPath("images_products")}/resized/${product.image}`
+        );
 
         product.merge({ ...data, image: fileName });
       } else {

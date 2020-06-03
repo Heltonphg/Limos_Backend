@@ -13,7 +13,6 @@ class OrderItemController {
   async store({ request, response, auth }) {
     try {
       const data = await request.all();
-      order_id = parseInt(order_id, 10);
       const order = await Order.query()
         .where("is_active", true)
         .where("user_id", auth.user.id)

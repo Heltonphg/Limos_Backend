@@ -6,7 +6,7 @@ const fs = require ('fs');
 
 class PaymentMethodController {
   async index({request, response, view}) {
-    const payments = await PaymentMethod.query ().with ('snack_bars').fetch ();
+    const payments = await PaymentMethod.query ().fetch ();
     return payments;
   }
   async recortar (fileName) {

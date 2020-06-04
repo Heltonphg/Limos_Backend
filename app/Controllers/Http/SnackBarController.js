@@ -11,9 +11,14 @@ class SnackBarController {
   }
 
   async store({request, response}) {
-    const {payments} = request.headers ();
     try {
-      const data = request.all ();
+      const {name, categories, email, password, payments} = request.all ();
+      const data = {
+        name,
+        categories,
+        email,
+        password,
+      };
       if (!request.file ('logo')) return;
       const upload = request.file ('logo', {size: '5mb'});
       const fileName = `${Date.now ()}.${upload.subtype}`;
@@ -29,7 +34,7 @@ class SnackBarController {
       if (payments && payments.length > 0) {
         snack
           .payment_methods ()
-          .attach ([28, 29])
+          .attach (payments)
           .then (succes => {})
           .catch (e => console.log (e));
       }
@@ -55,6 +60,7 @@ class SnackBarController {
   }
 
   async update({params, request}) {
+    const {payments} = request.all ();
     const snack = await SnackBar.findOrFail (params.id);
     const data = request.all ();
 
@@ -70,7 +76,11 @@ class SnackBarController {
       }
       snack.merge ({...data, logo: fileName});
     } else {
-      snack.merge (data);
+      if (payments && payments.length > 0) {
+        await snack.payment_methods ().sync (payments);
+      } else {
+        snack.merge (data);
+      }
     }
 
     await snack.save ();

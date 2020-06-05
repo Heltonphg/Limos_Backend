@@ -12,7 +12,6 @@ class PaymentMethodController {
   async recortar (fileName) {
     await sharp (`${Helpers.publicPath ('payment_methods')}/${fileName}`)
       .resize (500)
-      .jpeg ({quality: 70})
       .toFile (`${Helpers.publicPath ('payment_methods')}/resized/${fileName}`)
       .then (data => {
         try {

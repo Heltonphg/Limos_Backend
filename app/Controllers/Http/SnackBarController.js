@@ -49,8 +49,13 @@ class SnackBarController {
 
   async show({params, request, response}) {
     try {
-      const snack = await SnackBar.findOrFail (params.id);
-      await snack.loadMany (['snack_address', 'payment_methods']);
+      const snack = await SnackBar.query ()
+        .where ('id', params.id)
+        .with ('snack_address')
+        .with ('payment_methods', builder => {
+          builder.orderBy ('created_at', 'desc');
+        })
+        .first ();
       return snack;
     } catch (error) {
       return response

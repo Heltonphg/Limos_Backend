@@ -59,6 +59,7 @@ class ProductController {
 
   //refatorar
   async store({request, auth, response}) {
+    const dir = `${Helpers.publicPath ('images_products')}/resized`;
     try {
       const data = request.all ();
       const cat_exist = await Category.find (data.category_id);
@@ -79,6 +80,10 @@ class ProductController {
         if (!upload.moved ()) {
           const error = upload.error ();
           return response.status (401).send ({error: {message: error}});
+        }
+
+        if (!fs.existsSync (dir)) {
+          fs.mkdirSync (dir);
         }
 
         await this.recortar (fileName);

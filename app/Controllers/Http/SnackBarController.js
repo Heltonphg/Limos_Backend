@@ -3,6 +3,8 @@ const server = use ('Server');
 const io = use ('socket.io') (server.getInstance ());
 const SnackBar = use ('App/Models/SnackBar');
 const Helpers = use ('Helpers');
+const sharp = require ('sharp');
+const fs = require ('fs');
 
 class SnackBarController {
   async index({}) {
@@ -10,7 +12,22 @@ class SnackBarController {
     return snacks;
   }
 
+  async recortar (fileName) {
+    await sharp (`${Helpers.publicPath ('logos')}/${fileName}`)
+      .resize (700)
+      .toFile (`${Helpers.publicPath ('logos')}/resized/${fileName}`)
+      .then (data => {
+        try {
+          fs.unlinkSync (`${Helpers.publicPath ('logos')}/${fileName}`);
+        } catch (error) {
+          console.log (error);
+        }
+      })
+      .catch (err => console.log (err));
+  }
+
   async store({request, response}) {
+    const dir = `${Helpers.publicPath ('logos')}/resized`;
     try {
       const {name, email, password, payments, categories} = request.all ();
 
@@ -29,6 +46,11 @@ class SnackBarController {
       if (!upload.moved ()) {
         throw upload.error ();
       }
+      if (!fs.existsSync (dir)) {
+        fs.mkdirSync (dir);
+      }
+
+      await this.recortar (fileName);
 
       const snack = await SnackBar.create ({...data, logo: fileName});
       if (payments && payments.length > 0) {
@@ -80,6 +102,8 @@ class SnackBarController {
       if (!upload.moved ()) {
         throw upload.error ();
       }
+      await this.recortar (fileName);
+      fs.unlinkSync (`${Helpers.publicPath ('logos')}/resized/${snack.logo}`);
       snack.merge ({...data, logo: fileName});
     } else {
       if (

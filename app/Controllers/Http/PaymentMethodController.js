@@ -9,6 +9,7 @@ class PaymentMethodController {
     const payments = await PaymentMethod.query ().fetch ();
     return payments;
   }
+
   async recortar (fileName) {
     await sharp (`${Helpers.publicPath ('payment_methods')}/${fileName}`)
       .resize (500)

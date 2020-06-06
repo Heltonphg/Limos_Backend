@@ -18,7 +18,7 @@ class SnackBar extends Model {
   }
 
   getLogoimg () {
-    return `http://10.0.0.107:3333/logos/${this.logo}`;
+    return `http://10.0.0.107:3333/logos/resized/${this.logo}`;
   }
 
   payment_methods () {

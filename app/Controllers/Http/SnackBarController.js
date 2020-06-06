@@ -12,10 +12,10 @@ class SnackBarController {
 
   async store({request, response}) {
     try {
-      const {name, categories, email, password, payments} = request.all ();
+      const {name, email, password, payments, categories} = request.all ();
+
       const data = {
         name,
-        categories,
         email,
         password,
       };
@@ -32,11 +32,11 @@ class SnackBarController {
 
       const snack = await SnackBar.create ({...data, logo: fileName});
       if (payments && payments.length > 0) {
-        snack
-          .payment_methods ()
-          .attach (payments)
-          .then (succes => {})
-          .catch (e => console.log (e));
+        await snack.payment_methods ().attach (payments);
+      }
+      if (categories && categories.length > 0) {
+        await snack.categories ().attach (categories);
+        await snack.load ('categories');
       }
       io.emit ('new_snack', snack);
       return snack;
@@ -55,6 +55,7 @@ class SnackBarController {
         .with ('payment_methods', builder => {
           builder.orderBy ('created_at', 'desc');
         })
+        .with ('categories')
         .first ();
       return snack;
     } catch (error) {
@@ -65,7 +66,7 @@ class SnackBarController {
   }
 
   async update({params, request}) {
-    const {payments} = request.all ();
+    const {payments, categories} = request.all ();
     const snack = await SnackBar.findOrFail (params.id);
     const data = request.all ();
 
@@ -81,8 +82,15 @@ class SnackBarController {
       }
       snack.merge ({...data, logo: fileName});
     } else {
-      if (payments && payments.length > 0) {
-        await snack.payment_methods ().sync (payments);
+      if (
+        (payments && payments.length > 0) ||
+        (categories && categories.length > 0)
+      ) {
+        if (categories && categories.length > 0) {
+          await snack.categories ().sync (categories);
+        } else if (payments && payments.length > 0) {
+          await snack.payment_methods ().sync (payments);
+        }
       } else {
         snack.merge (data);
       }

@@ -25,6 +25,10 @@ class SnackBar extends Model {
     return this.belongsToMany ('App/Models/PaymentMethod');
   }
 
+  categories () {
+    return this.belongsToMany ('App/Models/Category');
+  }
+
   products () {
     return this.hasMany ('App/Models/Product');
   }

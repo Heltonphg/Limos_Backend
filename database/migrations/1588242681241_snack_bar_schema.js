@@ -10,7 +10,6 @@ class SnackBarSchema extends Schema {
       table.string ('name').notNullable ().unique ();
       table.string ('email', 254);
       table.string ('password', 60);
-      table.string ('categories').defaultTo ('');
       table.boolean ('is_open').defaultTo (false);
       table
         .string ('logo')

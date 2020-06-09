@@ -58,7 +58,7 @@ class SnackBarController {
       }
       if (categories && categories.length > 0) {
         await snack.categories ().attach (categories);
-        await snack.load ('categories');
+        // await snack.load ('categories');
       }
       io.emit ('new_snack', snack);
       return snack;
@@ -74,6 +74,7 @@ class SnackBarController {
       const snack = await SnackBar.query ()
         .where ('id', params.id)
         .with ('snack_address')
+        .with ('delivery_cities')
         .with ('payment_methods', builder => {
           builder.orderBy ('created_at', 'desc');
         })

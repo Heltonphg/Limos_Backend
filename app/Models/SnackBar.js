@@ -33,6 +33,10 @@ class SnackBar extends Model {
     return this.hasMany ('App/Models/Product');
   }
 
+  delivery_cities () {
+    return this.hasMany ('App/Models/DeliveryCity');
+  }
+
   snack_address () {
     return this.belongsTo ('App/Models/SnackAddress');
   }

@@ -2,7 +2,7 @@
 <h2 align="center">Backend do Limos App</h2>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/heltonphg/backend_delivery">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/heltonphg/Limos_Backend">
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/heltonphg/backend_delivery">
    <a href="https://github.com/heltonphg/backend_delivery/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/heltonphg/backend_delivery">

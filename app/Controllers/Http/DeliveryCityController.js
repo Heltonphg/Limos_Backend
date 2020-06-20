@@ -5,7 +5,7 @@ const axios = require ('axios');
 class DeliveryCityController {
   async index({auth}) {
     const cities_delivery = await DeliveryCity.query ()
-      .where ('id', auth.user.id)
+      .where ('snack_bar_id', auth.user.id)
       .fetch ();
     return cities_delivery;
   }
@@ -41,7 +41,17 @@ class DeliveryCityController {
     return city_delivery;
   }
 
-  async destroy({params, request, response}) {}
+  async destroy({params, auth, response}) {
+    const {id} = params;
+    const city_delivery = await DeliveryCity.findOrFail (id);
+    if (city_delivery.snack_bar_id !== auth.user.id) {
+      return response
+        .status (401)
+        .send ({error: {message: 'você não pode deletar isso!'}});
+    }
+    await city_delivery.delete ();
+    return response.status (204).send ();
+  }
 }
 
 module.exports = DeliveryCityController;

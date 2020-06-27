@@ -1,32 +1,31 @@
-'use strict';
+"use strict";
 
-/** @type {import('@adonisjs/lucid/src/Schema')} */
-const Schema = use ('Schema');
+const Schema = use("Schema");
 
 class SnackBarHasPaymentMethodsSchema extends Schema {
-  up () {
-    this.create ('payment_method_snack_bar', table => {
-      table.increments ();
+  up() {
+    this.create("payment_method_snack_bar", (table) => {
+      table.increments();
       table
-        .integer ('snack_bar_id')
-        .unsigned ()
-        .references ('id')
-        .inTable ('snack_bars')
-        .onUpdate ('CASCADE')
-        .onDelete ('SET NULL');
+        .integer("snack_bar_id")
+        .unsigned()
+        .references("id")
+        .inTable("snack_bars")
+        .onUpdate("CASCADE")
+        .onDelete("SET NULL");
       table
-        .integer ('payment_method_id')
-        .unsigned ()
-        .references ('id')
-        .inTable ('payment_methods')
-        .onUpdate ('CASCADE')
-        .onDelete ('SET NULL');
-      table.timestamps ();
+        .integer("payment_method_id")
+        .unsigned()
+        .references("id")
+        .inTable("payment_methods")
+        .onUpdate("CASCADE")
+        .onDelete("SET NULL");
+      table.timestamps();
     });
   }
 
-  down () {
-    this.drop ('payment_method_snack_bar');
+  down() {
+    this.drop("payment_method_snack_bar");
   }
 }
 

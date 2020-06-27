@@ -15,3 +15,7 @@
 ## Backend 
 <img align="leth" src="https://hridoy.gallerycdn.vsassets.io/extensions/hridoy/adonisjs-snippets/1.0.2/1511145522817/Microsoft.VisualStudio.Services.Icons.Default" width="110px;" />
 
+## Modelo Relacional 
+<img align="leth" src="https://github.com/Heltonphg/Limos_Backend/blob/master/.github/modelagem.png" width="1000px;" />
+
+

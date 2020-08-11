@@ -9,7 +9,7 @@ class Category extends Model {
   }
 
   getCategoryimg () {
-    return `http://10.0.0.107:3333/categories/${this.name}.png`;
+    return `https://adoni.herokuapp.com/categories/${this.name}.png`;
   }
 
   snack_bars () {

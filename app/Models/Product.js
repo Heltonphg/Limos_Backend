@@ -9,7 +9,7 @@ class Product extends Model {
   }
 
   getImg() {
-    return `http://10.0.0.107:3333/images_products/resized/${this.image}`
+    return `https://adoni.herokuapp.com/images_products/resized/${this.image}`
   }
 
   category() {

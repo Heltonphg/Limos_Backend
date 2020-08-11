@@ -9,7 +9,7 @@ class Avatar extends Model {
   }
 
   getAvatarurl() {
-    return `http://10.0.0.107:3333/avatars/${this.file}`
+    return `https://adoni.herokuapp.com/avatars/${this.file}`
   }
 
 }

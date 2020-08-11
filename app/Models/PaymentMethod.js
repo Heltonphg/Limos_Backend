@@ -8,7 +8,7 @@ class PaymentMethod extends Model {
     return ['Urlflag'];
   }
   getUrlflag () {
-    return `http://10.0.0.107:3333/payment_methods/resized/${this.image_flag}`;
+    return `https://adoni.herokuapp.com/payment_methods/resized/${this.image_flag}`;
   }
 
   snack_bars () {

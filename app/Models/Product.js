@@ -2,14 +2,14 @@
 
 const Model = use('Model')
 const Env = use('Env')
-
+const URL = require('../../config/general')
 class Product extends Model {
   static get computed() {
     return ['img']
   }
 
   getImg() {
-    return `https://adoni.herokuapp.com/images_products/resized/${this.image}`
+    return `${URL}resized/${this.image}`
   }
 
   category() {

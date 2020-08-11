@@ -9,6 +9,8 @@ Route.get ('/', ({response}) => {
 
 //TODO: CADASTRO DA LANCHONETE
 Route.post ('snackbar', 'SnackBarController.store');
+Route.resource ('create_common_category', 'CategoryController').only (['store']);
+Route.resource ('payment_methods', 'PaymentMethodController').apiOnly ();
 
 //TODO: CADASTRO DO USER
 Route.post ('users', 'UserController.store').validator ('User');
@@ -76,8 +78,6 @@ Route.group (() => {
     'index',
     'update',
   ]);
-
-  Route.resource ('payment_methods', 'PaymentMethodController').apiOnly ();
 
   Route.resource ('delivery_cities', 'DeliveryCityController').apiOnly ();
 

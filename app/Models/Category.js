@@ -1,7 +1,7 @@
 'use strict';
 
-/** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use ('Model');
+const URL = require('../../config/general')
 
 class Category extends Model {
   static get computed () {
@@ -9,7 +9,7 @@ class Category extends Model {
   }
 
   getCategoryimg () {
-    return `https://adoni.herokuapp.com/categories/${this.name}.png`;
+    return `${URL}categories/${this.name}.png`;
   }
 
   snack_bars () {

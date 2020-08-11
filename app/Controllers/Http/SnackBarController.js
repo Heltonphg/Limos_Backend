@@ -49,6 +49,7 @@ class SnackBarController {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }
+    
 
       await this.recortar(fileName);
 
@@ -58,8 +59,9 @@ class SnackBarController {
       }
       if (categories && categories.length > 0) {
         await snack.categories().attach(categories);
-        // await snack.load ('categories');
+        await snack.load ('categories');
       }
+  
       io.emit("new_snack", snack);
       return snack;
     } catch (error) {

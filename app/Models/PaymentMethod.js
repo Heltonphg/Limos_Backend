@@ -2,13 +2,14 @@
 
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use ('Model');
+const URL = require('../../config/general')
 
 class PaymentMethod extends Model {
   static get computed () {
     return ['Urlflag'];
   }
   getUrlflag () {
-    return `https://adoni.herokuapp.com/payment_methods/resized/${this.image_flag}`;
+    return `${URL}resized/${this.image_flag}`;
   }
 
   snack_bars () {

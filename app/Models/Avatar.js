@@ -2,6 +2,7 @@
 
 const Model = use('Model')
 const Env = use('Env')
+const URL = require('../../config/general')
 
 class Avatar extends Model {
   static get computed() {
@@ -9,7 +10,7 @@ class Avatar extends Model {
   }
 
   getAvatarurl() {
-    return `https://adoni.herokuapp.com/avatars/${this.file}`
+    return `${URL}avatars/${this.file}`
   }
 
 }

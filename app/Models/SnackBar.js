@@ -1,6 +1,7 @@
 'use strict';
 const Model = use ('Model');
 const Hash = use ('Hash');
+const URL = require('../../config/general')
 
 class SnackBar extends Model {
   static get computed () {
@@ -18,7 +19,7 @@ class SnackBar extends Model {
   }
 
   getLogoimg () {
-    return `https://adoni.herokuapp.com/logos/resized/${this.logo}`;
+    return `${URL}logos/resized/${this.logo}`;
   }
 
   payment_methods () {

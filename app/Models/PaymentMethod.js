@@ -9,7 +9,7 @@ class PaymentMethod extends Model {
     return ['Urlflag'];
   }
   getUrlflag () {
-    return `${URL}resized/${this.image_flag}`;
+    return `${URL}payment_methods/resized/${this.image_flag}`;
   }
 
   snack_bars () {

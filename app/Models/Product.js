@@ -9,7 +9,7 @@ class Product extends Model {
   }
 
   getImg() {
-    return `${URL}resized/${this.image}`
+    return `${URL}images_products/resized/${this.image}`
   }
 
   category() {

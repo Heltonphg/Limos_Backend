@@ -35,7 +35,7 @@
     "moment": "^2.24.0",
     "pg": "^8.0.3",
     "sharp": "^0.25.3",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   },
   "devDependencies": {},
   "autoload": {

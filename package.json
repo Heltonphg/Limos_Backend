@@ -29,7 +29,7 @@
     "@adonisjs/mail": "^3.0.10",
     "@adonisjs/validator": "^5.0.6",
     "@adonisjs/websocket": "^1.0.12",
-    "aws-sdk": "^2.688.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.19.2",
     "fs": "0.0.1-security",
     "moment": "^2.24.0",
